@@ -36,11 +36,13 @@ class Paint(Frame):
       self.canv.delete(self.line[-1])
       self.line.pop()
       print(self.line)
+      print(self.buffer)
+
 
     def returning(self):
       if len(self.buffer) > 0:
         self.line.append(self.canv.create_line(self.buffer[-1] , width=self.brush_size, fill=self.color))
-
+        self.buffer.pop(-1)
 
     def pr(self,event):
       print((self.line))
