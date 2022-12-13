@@ -18,6 +18,7 @@ class Paint:
 			self.root.iconbitmap(icon)  
 
 		self.Frame = Frame(self.root)
+		self.state = 'b'
 		
 		self.color = 'red'
 		self.brush_size = 2
@@ -30,6 +31,10 @@ class Paint:
 		self.cords = [0,0,0,0]
 		self.line = list()
 		self.buffer = list()
+
+
+
+		self.txt = 'sus'
 
 
 	def set_color(self, new_color):
@@ -71,7 +76,7 @@ class Paint:
 
 	def draw_label(self,event):
 		# lbl = Label(self.canv, text = 'kinda sus', bg='yellow').place(x=event.x, y=event.y)
-		self.canv.create_text(event.x, event.y, text="This text is kinda sus")
+		self.canv.create_text(event.x, event.y, text=self.txt)
 
 	def Save(self):
 		file_name = fd.asksaveasfilename(filetypes=([("IMAGE files", ".png")]))
@@ -114,6 +119,19 @@ class Paint:
 
 		cancel_btn = Button(self.Frame1, text="Cancel", width=10)
 		cancel_btn.grid(row=1, column=2) 
+
+	def change_state(self, event, new_state):
+		self.state = new_state
+		# print(self.state)
+
+		if self.state == 'b':
+			self.canv.bind("<B1-Motion>", self.draw0) 
+			self.canv.bind("<Button-1>", self.draw1)
+
+		if self.state == 't':
+			# print(123)
+			self.canv.bind("<Button-1>", self.draw_label)
+			self.canv.unbind("<B1-Motion>") 
 		
 
 	def setUI(self):
@@ -128,14 +146,23 @@ class Paint:
 		self.canv = Canvas(self.Frame, bg="white", width=self.canvas_width, height=self.canvas_height)  # Создаем поле для рисования, устанавливаем белый фон
 		self.canv.grid(row=3, column=1, columnspan=7)  # Прикрепляем канвас методом grid. Он будет находится в 3м ряду, первой колонке, и будет занимать 7 колонок, задаем отступы по X и Y в 5 пикселей, и заставляем растягиваться при растягивании всего окна
 
-		self.canv.bind("<B1-Motion>", self.draw0) # Привязываем обработчик к канвасу. <B1-Motion> означает "при движении зажатой левой кнопки мыши" вызывать функцию draw
-		self.canv.bind("<Button-1>", self.draw1)
-		self.canv.bind("<Button-2>", self.draw_label)
+
+		if self.state == 'b':
+			self.canv.bind("<B1-Motion>", self.draw0) 
+			self.canv.bind("<Button-1>", self.draw1)
+
+		if self.state == 't':
+			print(123)
+			self.canv.bind("<Button-1>", self.draw_label)
 
 		self.canv.bind_all('<Command-z>', self.deleting)
 		self.canv.bind_all('<Command-y>', self.returning)
 		self.canv.bind_all('<Command-x>', lambda x: self.canv.delete("all"))
 		self.canv.bind_all('<Command-s>', self.Save)
+
+		self.canv.bind_all('<b>', lambda event: self.change_state(event,'b'))
+		self.canv.bind_all('<t>', lambda event: self.change_state(event,'t'))
+		self.canv.bind_all('<m>', lambda event: self.change_state(event,'m'))
 
 		color_lab = Label(self.Frame, text="Color: ") # Создаем метку для кнопок изменения цвета кисти
 		color_lab.grid(row=0, column=0, padx=6) # Устанавливаем созданную метку в первый ряд и первую колонку, задаем горизонтальный отступ в 6 пикселей
@@ -166,8 +193,16 @@ class Paint:
 			 			command=lambda: self.returning(self))
 		chetiri_btn.grid(row=0, column=3)
 
-		
+		txt_btn = Button(self.Frame, text="Change text", width=10,
+			 			command=lambda: self.change_txt(txt_entry.get()))
+		txt_btn.grid(row=1, column=3)
 
+		txt_entry = Entry(self.Frame, width=10)
+		txt_entry.grid(row=1, column=4)
+
+		
+	def change_txt(self, t):
+		self.txt = t
 
 
 	def draw_menu(self):
