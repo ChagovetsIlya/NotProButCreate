@@ -70,7 +70,8 @@ class Paint:
 		print(event.x, event.y)
 
 	def draw_label(self,event):
-		lbl = Label(self.canv, text = 'kinda sus', bg='yellow').place(x=event.x, y=event.y)
+		# lbl = Label(self.canv, text = 'kinda sus', bg='yellow').place(x=event.x, y=event.y)
+		self.canv.create_text(event.x, event.y, text="This text is kinda sus")
 
 	def Save(self):
 		file_name = fd.asksaveasfilename(filetypes=([("IMAGE files", ".png")]))
