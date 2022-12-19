@@ -51,7 +51,9 @@ are responsible for the working process of the project.'''
         '''!Function set_color is responsible for choosing color in the color palette
          @param new_color: new color of the brush '''
         if new_color:
+            # print(new_color)
             self.brush_color = "#%02x%02x%02x" % new_color
+            # print(self.brush_color)
 
     def set_brush_size(self, new_size):
         '''!Function set_brush_size is responsible for setting size of the brush for painting
@@ -448,6 +450,8 @@ are responsible for the working process of the project.'''
                                          width=10,
                                          command=lambda: self.font_chooser()))
         self.fast_menu_bar[3].grid(row=0, column=3)
+
+
 
     def state_f(self):
         '''!Function state_f is responsible for the state on the button F: a special menu bar for working with the elements (image/figure) appear.'''
