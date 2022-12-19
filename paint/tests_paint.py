@@ -1,102 +1,97 @@
 import unittest
 
-import paint
+import paint as pipi
 
 
 class test_paint(unittest.TestCase):
 
-    def test_set_color(self):
-        self.assertTrue(self)
-
-    def test_set_brush_size(self):
-        self.assertTrue(self)
-
-    def test_draw0(self):
-        self.assertTrue(self)
-
-    def test_draw1(self):
-        self.assertTrue(self)
-
-    def test_deleting(self):
-        self.assertTrue(self)
-
-    def test_returning(self):
-        self.assertTrue(self)
-
-    def test_draw_label(self):
-        self.assertTrue(self)
-
-    def test_set_text_color(self):
-        self.assertTrue(self)
-
-    def test_set_text_font(self):
-        self.assertTrue(self)
-
-    def test_set_element_color(self):
-        self.assertTrue(self)
-
-    def test_set_insertion_type(self):
-        self.assertTrue(self)
-
-    def test_insert_element_0(self):
-        self.assertTrue(self)
-
-    def test_insert_element_1(self):
-        self.assertTrue(self)
-
-    def test_Save(self):
-        self.assertTrue(self)
-
-    def test_set_size(self):
-        self.assertTrue(self)
-
-    def test_set_size_window(self):
-        self.assertTrue(self)
-
     def test_delete_fast_menu_bar(self):
-        self.assertTrue(self)
+        p = pipi.Paint(300, 300)
+        p.state_t()
+        p.delete_fast_menu_bar()
 
-    def test_change_state(self):
-        self.assertTrue(self)
+        self.assertEqual(p.fast_menu_bar, [])
+        
+    def test_set_size(self):
+        p = pipi.Paint(300, 300)
 
-    def test_start_movement(self):
-        self.assertTrue(self)
+        p.setUI()
+        self.assertEqual([p.canvas_width, p.canvas_height], [512, 512])
 
-    def test_movement(self):
-        self.assertTrue(self)
+        p.set_size(400,100)
 
-    def test_move_figure(self):
-        self.assertTrue(self)
-
-    def test_state_b(self):
-        self.assertTrue(self)
-
-    def test_state_t(self):
-        self.assertTrue(self)
-
-    def test_return_font_settings(self):
-        self.assertTrue(self)
+        self.assertEqual([p.canvas_width, p.canvas_height], [400, 100])
 
     def test_validate(self):
-        self.assertTrue(self)
+        p = pipi.Paint(300, 300)
 
-    def test_font_chooser(self):
-        self.assertTrue(self)
+        self.assertEqual(p.validate('3'),True)
+        self.assertEqual(p.validate('privet'),False)
 
-    def test_setUI(self):
-        self.assertTrue(self)
+    def test_set_text_color(self):
+        p = pipi.Paint(300, 300)
+
+        self.assertEqual(p.text_color, 'black')
+
+        p.set_text_color((0, 255, 0))
+        self.assertEqual(p.text_color, '#00ff00')
+
+    def test_set_color(self):
+        p = pipi.Paint(300, 300)
+
+        self.assertEqual(p.brush_color, 'red')
+
+        p.set_color((0, 255, 0))
+        self.assertEqual(p.brush_color, '#00ff00')
+
+    def test_set_element_color(self):
+        p = pipi.Paint(300, 300)
+        self.assertEqual(p.figure_color, 'green')
+
+        p.set_element_color((0,255,0))
+
+        self.assertEqual(p.figure_color, '#00ff00')
 
     def test_change_txt(self):
-        self.assertTrue(self)
+        p = pipi.Paint(300, 300)
 
-    def test_draw_menu(self):
-        self.assertTrue(self)
+        self.assertEqual(p.text, 'Hello World!')
 
-    def test_Run(self):
-        self.assertTrue(self)
+        p.change_txt('Hello')
+        self.assertEqual(p.text, 'Hello')
 
-    def test_main(self):
-        self.assertTrue(self)
+    def test_set_brush_size(self):
+        p = pipi.Paint(300, 300)
+
+        self.assertEqual(p.brush_size, 2)
+
+        p.set_brush_size(30)
+        self.assertEqual(p.brush_size, 30)
+
+    def test_change_state(self):
+        p = pipi.Paint(300, 300)
+        p.setUI()
+
+        p.change_state(1, 't')
+        self.assertEqual(p.state , 't')
+
+        p.change_state(1, 'b')
+        self.assertEqual(p.state , 'b')
+
+        p.change_state(1, 'f')
+        self.assertEqual(p.state , 'f')
+
+    def test_set_insertion_type(self):
+        p = pipi.Paint(300, 300)
+
+        self.assertEqual(p.insert_element , 'rectangle')
+
+        p.set_insertion_type('oval')
+        self.assertEqual(p.insert_element , 'oval')
+
+
+        p.set_insertion_type('rectangle')
+        self.assertEqual(p.insert_element , 'rectangle')
 
 if __name__ == '__main__':
     unittest.main()
