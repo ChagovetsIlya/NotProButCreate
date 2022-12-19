@@ -1,6 +1,6 @@
 import unittest
 
-import paint
+import main
 
 
 class test_paint(unittest.TestCase):
