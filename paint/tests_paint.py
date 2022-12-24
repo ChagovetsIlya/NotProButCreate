@@ -36,6 +36,9 @@ class test_paint(unittest.TestCase):
         p.set_text_color((0, 255, 0))
         self.assertEqual(p.text_color, '#00ff00')
 
+        p.set_text_color('')
+        self.assertEqual(p.text_color, '#00ff00')
+
     def test_set_color(self):
         p = pipi.Paint(300, 300)
 
@@ -44,12 +47,17 @@ class test_paint(unittest.TestCase):
         p.set_color((0, 255, 0))
         self.assertEqual(p.brush_color, '#00ff00')
 
+        p.set_color('')
+        self.assertEqual(p.brush_color, '#00ff00')
+
     def test_set_element_color(self):
         p = pipi.Paint(300, 300)
         self.assertEqual(p.figure_color, 'green')
 
         p.set_element_color((0,255,0))
+        self.assertEqual(p.figure_color, '#00ff00')
 
+        p.set_element_color('')
         self.assertEqual(p.figure_color, '#00ff00')
 
     def test_change_txt(self):
@@ -66,6 +74,12 @@ class test_paint(unittest.TestCase):
         self.assertEqual(p.brush_size, 2)
 
         p.set_brush_size(30)
+        self.assertEqual(p.brush_size, 30)
+
+        p.set_brush_size('')
+        self.assertEqual(p.brush_size, 30)
+
+        p.set_brush_size(0)
         self.assertEqual(p.brush_size, 30)
 
     def test_change_state(self):
